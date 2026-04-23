@@ -1,0 +1,881 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dental Signature - Caring for you & your smile</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .page-view { display: none; }
+        .page-view.active { display: block; }
+        .animate-fadeIn { animation: fadeIn 0.4s ease-in-out; }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        /* Custom scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #f1f1f1; }
+        ::-webkit-scrollbar-thumb { background: #00b4d8; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #0096b8; }
+    </style>
+</head>
+<body class="min-h-screen bg-white text-gray-800 flex flex-col">
+
+    <!-- Header -->
+    <header class="fixed top-0 w-full bg-white/90 backdrop-blur-md shadow-sm z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16 md:h-20">
+                <!-- Logo -->
+                <div class="flex-shrink-0 flex items-center cursor-pointer" onclick="navigate('home')">
+                    <div class="flex items-center gap-2">
+                        <div class="text-[#00b4d8]">
+                            <svg width="32" height="32" class="md:w-10 md:h-10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M12 4.5c-3-2-6-1.5-8 1.5s0 8 3 10c2.5 1.5 5 1.5 5 1.5s2.5 0 5-1.5c3-2 3-7 3-10s-5-3.5-8-1.5z"></path>
+                                <path d="M12 17.5v-8"></path>
+                                <path d="M8 9.5v8"></path>
+                                <path d="M16 9.5v8"></path>
+                            </svg>
+                        </div>
+                        <div>
+                            <h1 class="text-lg md:text-xl font-black text-[#13284c] leading-none tracking-tight">Dental</h1>
+                            <h1 class="text-lg md:text-xl font-light text-[#13284c] leading-none tracking-tight">Signature</h1>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Desktop Navigation -->
+                <nav class="hidden md:flex space-x-6 lg:space-x-8">
+                    <button onclick="navigate('home')" class="nav-btn text-xs lg:text-sm font-bold uppercase tracking-wide transition-colors text-[#00b4d8]" data-target="home">Home</button>
+                    <button onclick="navigate('about')" class="nav-btn text-xs lg:text-sm font-bold uppercase tracking-wide transition-colors text-[#13284c] hover:text-[#00b4d8]" data-target="about">About Us</button>
+                    <button onclick="navigate('services')" class="nav-btn text-xs lg:text-sm font-bold uppercase tracking-wide transition-colors text-[#13284c] hover:text-[#00b4d8]" data-target="services">Services</button>
+                    <button onclick="navigate('gallery')" class="nav-btn text-xs lg:text-sm font-bold uppercase tracking-wide transition-colors text-[#13284c] hover:text-[#00b4d8]" data-target="gallery">Gallery</button>
+                </nav>
+
+                <!-- CTA Button -->
+                <div class="hidden md:flex">
+                    <button onclick="navigate('contact')" class="px-5 lg:px-6 py-2.5 lg:py-3 rounded-lg font-semibold transition-all duration-300 shadow-md hover:shadow-lg bg-[#13284c] text-white hover:bg-[#0f1f3a] text-sm lg:text-base">Let's Talk</button>
+                </div>
+
+                <!-- Mobile menu button -->
+                <div class="md:hidden flex items-center">
+                    <button id="mobile-menu-btn" class="text-[#13284c] hover:text-[#00b4d8] transition-colors p-2">
+                        <i data-lucide="menu" id="menu-icon" class="w-7 h-7"></i>
+                        <i data-lucide="x" id="close-icon" class="w-7 h-7 hidden"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Navigation Panel -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-t px-4 pt-2 pb-6 space-y-1 shadow-2xl absolute w-full left-0 min-h-[50vh] flex flex-col z-50 origin-top animate-fadeIn">
+            <button onclick="navigate('home')" class="nav-btn block py-4 text-lg font-medium border-b border-gray-100 text-left w-full text-[#00b4d8]" data-target="home">Home</button>
+            <button onclick="navigate('about')" class="nav-btn block py-4 text-lg font-medium border-b border-gray-100 text-left w-full text-[#13284c] hover:text-[#00b4d8]" data-target="about">About Us</button>
+            <button onclick="navigate('services')" class="nav-btn block py-4 text-lg font-medium border-b border-gray-100 text-left w-full text-[#13284c] hover:text-[#00b4d8]" data-target="services">Services</button>
+            <button onclick="navigate('gallery')" class="nav-btn block py-4 text-lg font-medium border-b border-gray-100 text-left w-full text-[#13284c] hover:text-[#00b4d8]" data-target="gallery">Gallery</button>
+            <div class="pt-6 mt-auto">
+                <button onclick="navigate('contact')" class="px-6 py-4 rounded-lg font-semibold transition-all duration-300 shadow-md hover:shadow-lg bg-[#13284c] text-white hover:bg-[#0f1f3a] w-full text-lg">Let's Talk</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content Area -->
+    <main class="flex-grow pt-16 md:pt-20">
+
+        <!-- Floating Social Media Bar (Desktop) -->
+        <div class="fixed left-0 top-1/3 z-50 flex flex-col gap-0 shadow-2xl rounded-r-xl overflow-hidden hidden md:flex animate-fadeIn">
+            <a href="#" class="bg-[#1877F2] text-white p-3 w-12 hover:w-16 transition-all duration-300 flex justify-end items-center group" title="Facebook">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 group-hover:scale-110 transition-transform"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg>
+            </a>
+            <a href="#" class="bg-black text-white p-3 w-12 hover:w-16 transition-all duration-300 flex justify-end items-center group" title="X (Twitter)">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 group-hover:scale-110 transition-transform"><path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z"></path></svg>
+            </a>
+            <a href="#" class="bg-gradient-to-tr from-[#F58529] via-[#DD2A7B] to-[#8134AF] text-white p-3 w-12 hover:w-16 transition-all duration-300 flex justify-end items-center group" title="Instagram">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 group-hover:scale-110 transition-transform"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"></line></svg>
+            </a>
+            <a href="#" class="bg-[#0A66C2] text-white p-3 w-12 hover:w-16 transition-all duration-300 flex justify-end items-center group" title="LinkedIn">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 group-hover:scale-110 transition-transform"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect width="4" height="12" x="2" y="9"></rect><circle cx="4" cy="4" r="2"></circle></svg>
+            </a>
+        </div>
+
+        <!-- ================= HOME PAGE ================= -->
+        <div id="page-home" class="page-view active animate-fadeIn">
+            <!-- Hero Section -->
+            <div class="bg-[#e6f7fa] pt-12 pb-20 md:pt-24 md:pb-32 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
+                <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-center">
+                    <div class="z-10 text-center md:text-left">
+                        <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-[#13284c] leading-tight mb-4 md:mb-6">
+                            Caring for you <br class="hidden sm:block" /> & your smile
+                        </h1>
+                        <p class="text-base sm:text-lg text-gray-700 mb-6 md:mb-8 max-w-lg mx-auto md:mx-0">
+                            Dental Signature is a friendly, professional and affordable private dental practice offering an extensive range of dental services.
+                        </p>
+                        <div class="flex flex-col sm:flex-row items-center justify-center md:justify-start gap-4">
+                            <button onclick="navigate('contact')" class="px-6 py-3 w-full sm:w-auto rounded-lg font-semibold transition-all duration-300 shadow-md hover:shadow-lg bg-[#13284c] text-white hover:bg-[#0f1f3a]">Book an appointment</button>
+                            <div class="text-sm text-center sm:text-left">
+                                <span class="text-gray-500">or call</span><br />
+                                <strong class="text-[#00b4d8]">024 8632 660, 055 453 2013</strong>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="relative z-10 mt-8 md:mt-0">
+                        <img src="https://images.unsplash.com/photo-1606811841689-23dfddce3e95?auto=format&fit=crop&w=800&q=80" alt="Smiling man" class="w-full h-64 sm:h-80 md:h-[400px] lg:h-[500px] object-cover rounded-[2rem] md:rounded-[3rem] shadow-2xl rounded-br-[4rem] md:rounded-br-[8rem]">
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Wave Separator -->
+            <div class="relative w-full h-12 md:h-24 overflow-hidden -mt-12 md:-mt-24 z-10 pointer-events-none">
+                <svg viewBox="0 0 1440 120" class="absolute bottom-0 w-full h-full" preserveAspectRatio="none">
+                    <path fill="#ffffff" d="M0,64L80,69.3C160,75,320,85,480,80C640,75,800,53,960,48C1120,43,1280,53,1360,58.7L1440,64L1440,120L1360,120C1280,120,1120,120,960,120C800,120,640,120,480,120C320,120,160,120,80,120L0,120Z"></path>
+                </svg>
+            </div>
+
+            <!-- At Dental Signature -->
+            <div class="py-12 md:py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16 items-center">
+                    <div class="relative order-2 md:order-1">
+                        <div class="absolute inset-0 bg-[#e6f7fa] rounded-[2rem] md:rounded-[3rem] transform -translate-x-3 translate-y-3 md:-translate-x-4 md:translate-y-4 -z-10"></div>
+                        <img src="https://images.unsplash.com/photo-1609840114035-3c981b782dfe?auto=format&fit=crop&w=800&q=80" alt="Teeth shade guide" class="rounded-[2rem] md:rounded-[3rem] shadow-xl w-full object-cover h-56 sm:h-64 md:h-[400px]">
+                    </div>
+                    <div class="order-1 md:order-2 text-center md:text-left">
+                        <i data-lucide="quote" class="text-[#00b4d8] w-10 h-10 md:w-12 md:h-12 mb-4 opacity-50 mx-auto md:mx-0"></i>
+                        <div class="mb-6 md:mb-8 flex flex-col md:block items-center">
+                            <h2 class="text-3xl md:text-4xl font-extrabold text-[#13284c] tracking-tight">At Dental Signature,</h2>
+                            <div class="w-16 h-1.5 bg-[#00b4d8] mt-3 rounded-full"></div>
+                        </div>
+                        <p class="text-gray-600 mb-6 md:mb-8 leading-relaxed text-sm md:text-base">
+                            At Dental Signature, each state-of-the-art office has a team of dentists, oral surgeons, gums specialists, orthodontists and a full implant center for your convenience. There's literally nothing we can't do! And with the latest technology at Dental Signature, our specialists design and create your crown or implant while you wait.
+                        </p>
+                        <button onclick="navigate('about')" class="px-6 py-3 rounded-lg font-semibold transition-all duration-300 shadow-md hover:shadow-lg bg-[#00b4d8] text-white hover:bg-[#0096b8] w-full md:w-auto">About Us</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Our Services Preview -->
+            <div class="bg-[#f8fcfd] py-12 md:py-20 px-4 sm:px-6 lg:px-8">
+                <div class="max-w-7xl mx-auto">
+                    <div class="mb-6 md:mb-8 flex flex-col items-center text-center">
+                        <h2 class="text-3xl md:text-4xl font-extrabold text-[#13284c] tracking-tight">Our Services</h2>
+                        <div class="w-16 h-1.5 bg-[#00b4d8] mt-3 rounded-full mx-auto"></div>
+                    </div>
+                    <p class="text-center text-gray-600 max-w-2xl mx-auto mb-10 md:mb-12 text-sm md:text-base px-4">
+                        We cater to all the needs you have about your dental health. We employ only the best and use the highest quality equipment to provide the best service.
+                    </p>
+                    
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8 mb-10 md:mb-12">
+                        <!-- Service Cards -->
+                        <div class="bg-white p-6 md:p-8 rounded-[2rem] md:rounded-[2.5rem] shadow-md hover:shadow-xl transition-shadow text-center border border-gray-50 flex flex-col items-center">
+                            <div class="w-16 h-16 md:w-20 md:h-20 bg-[#e6f7fa] text-[#00b4d8] rounded-full flex items-center justify-center mb-4 md:mb-6 border-4 border-white shadow-sm">
+                                <i data-lucide="shield-check" class="w-8 h-8 md:w-9 md:h-9"></i>
+                            </div>
+                            <h3 class="text-lg md:text-xl font-bold text-[#13284c] mb-3 md:mb-4">Dental Check-Up</h3>
+                            <p class="text-gray-500 text-xs md:text-sm leading-relaxed">This is a periodic dental check, where dentist examines the teeth for any abnormality. Dental check-up is a preventive step towards maintaining a healthy oral hygiene.</p>
+                        </div>
+                        <div class="bg-white p-6 md:p-8 rounded-[2rem] md:rounded-[2.5rem] shadow-md hover:shadow-xl transition-shadow text-center border border-gray-50 flex flex-col items-center">
+                            <div class="w-16 h-16 md:w-20 md:h-20 bg-[#e6f7fa] text-[#00b4d8] rounded-full flex items-center justify-center mb-4 md:mb-6 border-4 border-white shadow-sm">
+                                <i data-lucide="sparkles" class="w-8 h-8 md:w-9 md:h-9"></i>
+                            </div>
+                            <h3 class="text-lg md:text-xl font-bold text-[#13284c] mb-3 md:mb-4">Scale & Polish</h3>
+                            <p class="text-gray-500 text-xs md:text-sm leading-relaxed">This is the procedure of professionally cleaning the teeth and gums. It involves removing staining, plaque (soft, sticky bacteria) and tartar build up.</p>
+                        </div>
+                        <div class="bg-white p-6 md:p-8 rounded-[2rem] md:rounded-[2.5rem] shadow-md hover:shadow-xl transition-shadow text-center border border-gray-50 flex flex-col items-center">
+                            <div class="w-16 h-16 md:w-20 md:h-20 bg-[#e6f7fa] text-[#00b4d8] rounded-full flex items-center justify-center mb-4 md:mb-6 border-4 border-white shadow-sm">
+                                <i data-lucide="smile" class="w-8 h-8 md:w-9 md:h-9"></i>
+                            </div>
+                            <h3 class="text-lg md:text-xl font-bold text-[#13284c] mb-3 md:mb-4">Teeth Whitening</h3>
+                            <p class="text-gray-500 text-xs md:text-sm leading-relaxed">This is a procedure that involves the lightening of the exterior surface of the teeth. It includes sanding down stains, bleaching, UV light therapy, and more.</p>
+                        </div>
+                        <div class="bg-white p-6 md:p-8 rounded-[2rem] md:rounded-[2.5rem] shadow-md hover:shadow-xl transition-shadow text-center border border-gray-50 flex flex-col items-center">
+                            <div class="w-16 h-16 md:w-20 md:h-20 bg-[#e6f7fa] text-[#00b4d8] rounded-full flex items-center justify-center mb-4 md:mb-6 border-4 border-white shadow-sm">
+                                <i data-lucide="activity" class="w-8 h-8 md:w-9 md:h-9"></i>
+                            </div>
+                            <h3 class="text-lg md:text-xl font-bold text-[#13284c] mb-3 md:mb-4">Endodontics</h3>
+                            <p class="text-gray-500 text-xs md:text-sm leading-relaxed">This focuses on caring for complex tooth problems that primarily affect the tooth pulp. It involves advanced techniques to treat the dental pulp and root tissues.</p>
+                        </div>
+                    </div>
+                    <div class="text-center">
+                        <button onclick="navigate('services')" class="px-6 py-3 rounded-lg font-semibold transition-all duration-300 shadow-md hover:shadow-lg bg-[#00b4d8] text-white hover:bg-[#0096b8]">View all services</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Meet The Team -->
+            <div class="py-12 md:py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 md:gap-16 items-center">
+                    <div class="flex flex-row gap-4 sm:gap-8 justify-center items-center">
+                        <div class="text-center">
+                            <div class="w-32 h-32 md:w-48 md:h-48 rounded-full overflow-hidden mb-4 border-4 border-[#e6f7fa] mx-auto bg-gray-200">
+                                <img src="https://ui-avatars.com/api/?name=Olatunde+Popoola&background=random&size=200" alt="Dr Olatunde" class="w-full h-full object-cover">
+                            </div>
+                            <h4 class="font-bold text-[#13284c] text-base md:text-lg">Dr Olatunde Popoola</h4>
+                            <p class="text-[#00b4d8] text-xs md:text-sm font-medium">Principal Dentist</p>
+                        </div>
+                        <div class="text-center mt-8 md:mt-24">
+                            <div class="w-32 h-32 md:w-48 md:h-48 rounded-full overflow-hidden mb-4 border-4 border-[#e6f7fa] mx-auto bg-gray-200">
+                                <img src="https://ui-avatars.com/api/?name=Kojo+Kwame&background=random&size=200" alt="Dr Kojo" class="w-full h-full object-cover">
+                            </div>
+                            <h4 class="font-bold text-[#13284c] text-base md:text-lg">Dr Kojo Kwame</h4>
+                            <p class="text-[#00b4d8] text-xs md:text-sm font-medium">Dentist</p>
+                        </div>
+                    </div>
+                    <div class="text-center lg:text-left mt-8 lg:mt-0">
+                        <div class="mb-6 md:mb-8 flex flex-col lg:block items-center">
+                            <h2 class="text-3xl md:text-4xl font-extrabold text-[#13284c] tracking-tight">Meet The Team</h2>
+                            <div class="w-16 h-1.5 bg-[#00b4d8] mt-3 rounded-full"></div>
+                        </div>
+                        <p class="text-gray-600 mb-8 leading-relaxed max-w-md mx-auto lg:mx-0 text-sm md:text-base">
+                            We understand that every project is unique in its own entirety and as such our focus is to synchronize.
+                        </p>
+                        <button onclick="navigate('about')" class="px-6 py-3 w-full sm:w-auto rounded-lg font-semibold transition-all duration-300 shadow-md hover:shadow-lg bg-[#00b4d8] text-white hover:bg-[#0096b8]">View entire team</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Happy Clients -->
+            <div class="bg-[#f8fcfd] py-12 md:py-20 px-4 sm:px-6 lg:px-8 text-center">
+                <div class="mb-8 flex flex-col items-center text-center">
+                    <h2 class="text-3xl md:text-4xl font-extrabold text-[#13284c] tracking-tight">Join our list of happy clients</h2>
+                    <div class="w-16 h-1.5 bg-[#00b4d8] mt-3 rounded-full mx-auto"></div>
+                </div>
+                <div class="max-w-5xl mx-auto mt-10 md:mt-12 grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4">
+                    <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80" alt="Client" class="rounded-[1.5rem] md:rounded-[2rem] w-full h-32 sm:h-48 object-cover shadow-md">
+                    <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=400&q=80" alt="Client" class="rounded-[1.5rem] md:rounded-[2rem] w-full h-32 sm:h-48 object-cover shadow-md">
+                    <img src="https://images.unsplash.com/photo-1531123897727-8f129e1bf08c?auto=format&fit=crop&w=400&q=80" alt="Client" class="rounded-[1.5rem] md:rounded-[2rem] w-full h-32 sm:h-48 object-cover shadow-md">
+                    <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=400&q=80" alt="Client" class="rounded-[1.5rem] md:rounded-[2rem] w-full h-32 sm:h-48 object-cover shadow-md">
+                </div>
+                <div class="mt-16 md:mt-20">
+                    <h2 class="text-2xl md:text-3xl font-bold text-[#13284c] mb-6 px-4">Booking a dentist appointment has never been easier</h2>
+                    <button onclick="navigate('contact')" class="px-6 py-3 w-full sm:w-auto rounded-lg font-semibold transition-all duration-300 shadow-md hover:shadow-lg bg-[#00b4d8] text-white hover:bg-[#0096b8]">Book appointment</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- ================= ABOUT PAGE ================= -->
+        <div id="page-about" class="page-view animate-fadeIn">
+            <!-- Hero Section -->
+            <div class="relative h-[30vh] sm:h-[40vh] md:h-[60vh] flex items-center justify-center pt-16">
+                <div class="absolute inset-0 bg-black/50 z-10"></div>
+                <img src="https://images.unsplash.com/photo-1598256989800-efa4fd51071d?auto=format&fit=crop&w=1920&q=80" alt="About Us Hero" class="absolute inset-0 w-full h-full object-cover">
+                <div class="relative z-20 text-center text-white px-4 mt-8 md:mt-0">
+                    <h1 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold mb-3 md:mb-4 drop-shadow-md">About Us</h1>
+                    <p class="text-base sm:text-lg md:text-xl lg:text-2xl max-w-2xl mx-auto drop-shadow-sm">Dentistry is our profession, but people are our focus.</p>
+                </div>
+            </div>
+            
+            <div class="relative w-full h-12 md:h-24 overflow-hidden -mt-12 md:-mt-24 z-10 pointer-events-none">
+                <svg viewBox="0 0 1440 120" class="absolute bottom-0 w-full h-full" preserveAspectRatio="none">
+                    <path fill="#ffffff" d="M0,64L80,69.3C160,75,320,85,480,80C640,75,800,53,960,48C1120,43,1280,53,1360,58.7L1440,64L1440,120L1360,120C1280,120,1120,120,960,120C800,120,640,120,480,120C320,120,160,120,80,120L0,120Z"></path>
+                </svg>
+            </div>
+
+            <!-- Mission -->
+            <div class="py-12 md:py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16 items-center">
+                <div class="text-center md:text-left">
+                    <div class="mb-6 md:mb-8 flex flex-col md:block items-center">
+                        <h2 class="text-3xl md:text-4xl font-extrabold text-[#13284c] tracking-tight">Our Mission</h2>
+                        <div class="w-16 h-1.5 bg-[#00b4d8] mt-3 rounded-full"></div>
+                    </div>
+                    <p class="text-gray-600 leading-relaxed text-sm md:text-lg">
+                        We are committed to delivering optimal dental care services to our patients in order to significantly improve their general health, wellbeing and overall satisfaction.
+                    </p>
+                </div>
+                <div class="grid grid-cols-2 gap-3 md:gap-4">
+                    <img src="https://images.unsplash.com/photo-1606811841689-23dfddce3e95?auto=format&fit=crop&w=400&q=80" alt="Mission 1" class="rounded-2xl md:rounded-3xl shadow-lg w-full h-40 sm:h-64 object-cover">
+                    <img src="https://images.unsplash.com/photo-1629909613654-28e377c37b09?auto=format&fit=crop&w=400&q=80" alt="Mission 2" class="rounded-2xl md:rounded-3xl shadow-lg w-full h-40 sm:h-64 object-cover mt-4 md:mt-8">
+                </div>
+            </div>
+
+            <!-- Vision -->
+            <div class="py-12 md:py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16 items-center">
+                <div class="order-2 md:order-1 grid grid-cols-2 gap-3 md:gap-4">
+                    <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80" alt="Vision 1" class="rounded-2xl md:rounded-3xl shadow-lg w-full h-40 sm:h-64 object-cover mb-4 md:mb-8">
+                    <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=400&q=80" alt="Vision 2" class="rounded-2xl md:rounded-3xl shadow-lg w-full h-40 sm:h-64 object-cover mt-4 md:mt-0">
+                </div>
+                <div class="order-1 md:order-2 text-center md:text-left">
+                    <div class="mb-6 md:mb-8 flex flex-col md:block items-center">
+                        <h2 class="text-3xl md:text-4xl font-extrabold text-[#13284c] tracking-tight">Our Vision</h2>
+                        <div class="w-16 h-1.5 bg-[#00b4d8] mt-3 rounded-full"></div>
+                    </div>
+                    <p class="text-gray-600 leading-relaxed text-sm md:text-lg">
+                        Our vision is to support our patients around the globe to change the narration of their dental discomfort and help them gain their dental confidence.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Core Values -->
+            <div class="bg-[#f8fcfd] py-12 md:py-20 px-4 sm:px-6 lg:px-8">
+                <div class="max-w-7xl mx-auto">
+                    <div class="mb-6 md:mb-8 flex flex-col items-center text-center">
+                        <h2 class="text-3xl md:text-4xl font-extrabold text-[#13284c] tracking-tight">Our Core Values</h2>
+                        <div class="w-16 h-1.5 bg-[#00b4d8] mt-3 rounded-full mx-auto"></div>
+                    </div>
+                    <p class="text-center text-gray-600 mb-10 md:mb-12 text-sm md:text-base">Dedicated to excellence. Dedicated to your smile.</p>
+                    
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
+                        <!-- Value Cards -->
+                        <div class="bg-white p-6 md:p-8 rounded-[2rem] md:rounded-[2.5rem] shadow-md text-center border border-gray-50 flex flex-col items-center">
+                            <div class="w-16 h-16 md:w-20 md:h-20 bg-[#00b4d8] text-white rounded-full flex items-center justify-center mb-4 md:mb-6 shadow-md">
+                                <i data-lucide="briefcase-medical" class="w-8 h-8 md:w-9 md:h-9"></i>
+                            </div>
+                            <h3 class="text-lg md:text-xl font-bold text-[#13284c] mb-3 md:mb-4">Professionalism</h3>
+                            <p class="text-gray-500 text-xs md:text-sm leading-relaxed">We consistently strive to achieve high standards in our services. With our team of seasoned professionals, we get the job done and efficiently.</p>
+                        </div>
+                        <div class="bg-white p-6 md:p-8 rounded-[2rem] md:rounded-[2.5rem] shadow-md text-center border border-gray-50 flex flex-col items-center">
+                            <div class="w-16 h-16 md:w-20 md:h-20 bg-[#00b4d8] text-white rounded-full flex items-center justify-center mb-4 md:mb-6 shadow-md">
+                                <i data-lucide="heart-handshake" class="w-8 h-8 md:w-9 md:h-9"></i>
+                            </div>
+                            <h3 class="text-lg md:text-xl font-bold text-[#13284c] mb-3 md:mb-4">Care</h3>
+                            <p class="text-gray-500 text-xs md:text-sm leading-relaxed">We are compassionate and sensitive to the feelings and needs of our patients and our staff are well-trained to attend to those specific needs.</p>
+                        </div>
+                        <div class="bg-white p-6 md:p-8 rounded-[2rem] md:rounded-[2.5rem] shadow-md text-center border border-gray-50 flex flex-col items-center">
+                            <div class="w-16 h-16 md:w-20 md:h-20 bg-[#00b4d8] text-white rounded-full flex items-center justify-center mb-4 md:mb-6 shadow-md">
+                                <i data-lucide="check-circle-2" class="w-8 h-8 md:w-9 md:h-9"></i>
+                            </div>
+                            <h3 class="text-lg md:text-xl font-bold text-[#13284c] mb-3 md:mb-4">Integrity</h3>
+                            <p class="text-gray-500 text-xs md:text-sm leading-relaxed">We stay true to our words and are committed to giving our patients the best of services.</p>
+                        </div>
+                        <div class="bg-white p-6 md:p-8 rounded-[2rem] md:rounded-[2.5rem] shadow-md text-center border border-gray-50 flex flex-col items-center">
+                            <div class="w-16 h-16 md:w-20 md:h-20 bg-[#00b4d8] text-white rounded-full flex items-center justify-center mb-4 md:mb-6 shadow-md">
+                                <i data-lucide="smile" class="w-8 h-8 md:w-9 md:h-9"></i>
+                            </div>
+                            <h3 class="text-lg md:text-xl font-bold text-[#13284c] mb-3 md:mb-4">Comfort</h3>
+                            <p class="text-gray-500 text-xs md:text-sm leading-relaxed">We provide a welcoming environment where individuals and families feel comfortable and hopeful about the care they are receiving.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Team Detail -->
+            <div class="py-12 md:py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-10 md:gap-12 items-center">
+                    <div class="lg:col-span-1 text-center lg:text-left">
+                        <div class="mb-6 md:mb-8 flex flex-col lg:block items-center">
+                            <h2 class="text-3xl md:text-4xl font-extrabold text-[#13284c] tracking-tight">Meet Our Team of Specialists</h2>
+                            <div class="w-16 h-1.5 bg-[#00b4d8] mt-3 rounded-full"></div>
+                        </div>
+                        <p class="text-gray-600 mb-6 text-sm md:text-base">Our team is made up of doctors creating the healthy smile you want through science and artistry.</p>
+                    </div>
+                    <div class="lg:col-span-2 bg-[#e6f7fa] rounded-[2rem] md:rounded-[3rem] p-6 md:p-12 relative flex flex-col sm:flex-row items-center gap-6 md:gap-8 text-center sm:text-left">
+                        <div class="w-32 h-32 md:w-48 md:h-48 flex-shrink-0 bg-white rounded-2xl overflow-hidden shadow-lg border-4 border-white mx-auto sm:mx-0">
+                            <img src="https://ui-avatars.com/api/?name=Olatunde+Popoola&background=random&size=200" alt="Dr Olatunde Popoola" class="w-full h-full object-cover">
+                        </div>
+                        <div>
+                            <h4 class="text-xl md:text-2xl font-bold text-[#13284c]">Dr Olatunde Popoola</h4>
+                            <p class="text-[#00b4d8] font-semibold text-sm md:text-base mb-3 md:mb-4">Principal Dentist</p>
+                            <p class="text-gray-600 text-xs md:text-sm leading-relaxed mb-4">
+                                Dr Olatunde Popoola is the principal dentist of Dental Signature with 10 years of work experience as a practicing Dentist. He completed his BDS from University of Ghana Dental School in 2013 where he graduated as the Best Dental Student with several awards...
+                            </p>
+                            <div class="flex gap-3 justify-center sm:justify-start">
+                                <a href="#" class="w-8 h-8 md:w-10 md:h-10 rounded-full bg-[#13284c] text-white flex items-center justify-center hover:bg-[#00b4d8] transition-colors"><i data-lucide="facebook" class="w-4 h-4"></i></a>
+                                <a href="#" class="w-8 h-8 md:w-10 md:h-10 rounded-full bg-[#13284c] text-white flex items-center justify-center hover:bg-[#00b4d8] transition-colors"><i data-lucide="twitter" class="w-4 h-4"></i></a>
+                                <a href="#" class="w-8 h-8 md:w-10 md:h-10 rounded-full bg-[#13284c] text-white flex items-center justify-center hover:bg-[#00b4d8] transition-colors"><i data-lucide="instagram" class="w-4 h-4"></i></a>
+                                <a href="#" class="w-8 h-8 md:w-10 md:h-10 rounded-full bg-[#13284c] text-white flex items-center justify-center hover:bg-[#00b4d8] transition-colors"><i data-lucide="linkedin" class="w-4 h-4"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bottom CTA -->
+            <div class="py-12 md:py-16 text-center px-4">
+                <h2 class="text-2xl md:text-3xl font-bold text-[#13284c] mb-6 md:mb-8">Would you like to come see us?</h2>
+                <button onclick="navigate('contact')" class="px-6 py-3 w-full sm:w-auto rounded-lg font-semibold transition-all duration-300 shadow-md hover:shadow-lg bg-[#00b4d8] text-white hover:bg-[#0096b8]">Book appointment</button>
+            </div>
+        </div>
+
+        <!-- ================= SERVICES PAGE ================= -->
+        <div id="page-services" class="page-view animate-fadeIn">
+            <!-- Hero Section -->
+            <div class="relative h-[30vh] sm:h-[40vh] md:h-[50vh] flex items-center justify-center pt-16">
+                <div class="absolute inset-0 bg-black/50 z-10"></div>
+                <img src="https://images.unsplash.com/photo-1629909613654-28e377c37b09?auto=format&fit=crop&w=1920&q=80" alt="Services Hero" class="absolute inset-0 w-full h-full object-cover">
+                <div class="relative z-20 text-center text-white px-4 mt-8 md:mt-0">
+                    <h1 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold mb-3 md:mb-4 drop-shadow-md">Our Services</h1>
+                    <p class="text-base sm:text-lg md:text-xl lg:text-2xl max-w-2xl mx-auto drop-shadow-sm">Specialized dentistry. Personalized care.</p>
+                </div>
+            </div>
+            
+            <div class="relative w-full h-12 md:h-24 overflow-hidden -mt-12 md:-mt-24 z-10 pointer-events-none">
+                <svg viewBox="0 0 1440 120" class="absolute bottom-0 w-full h-full" preserveAspectRatio="none">
+                    <path fill="#ffffff" d="M0,64L80,69.3C160,75,320,85,480,80C640,75,800,53,960,48C1120,43,1280,53,1360,58.7L1440,64L1440,120L1360,120C1280,120,1120,120,960,120C800,120,640,120,480,120C320,120,160,120,80,120L0,120Z"></path>
+                </svg>
+            </div>
+
+            <div class="text-center py-10 md:py-12 px-4">
+                <p class="text-gray-600 text-sm md:text-lg max-w-3xl mx-auto">
+                    Here at Dental Signature we ensure to offer you the very best of care as aligned with our vision to support and guide our patients the whole time.
+                </p>
+            </div>
+
+            <!-- Why Choose Us -->
+            <div class="py-10 md:py-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16 items-center">
+                <div class="text-center md:text-left">
+                    <div class="mb-6 md:mb-8 flex flex-col md:block items-center">
+                        <h2 class="text-3xl md:text-4xl font-extrabold text-[#13284c] tracking-tight">Why Choose us</h2>
+                        <div class="w-16 h-1.5 bg-[#00b4d8] mt-3 rounded-full"></div>
+                    </div>
+                    <p class="text-gray-600 leading-relaxed text-sm md:text-lg">
+                        We are committed to delivering optimal dental care services to our patients in order to significantly improve their general health, wellbeing and overall satisfaction.
+                    </p>
+                </div>
+                <div>
+                    <img src="https://images.unsplash.com/photo-1606811841689-23dfddce3e95?auto=format&fit=crop&w=800&q=80" alt="Clinic Room" class="rounded-[2rem] md:rounded-[3rem] rounded-tr-none shadow-xl w-full h-56 sm:h-64 md:h-[400px] object-cover">
+                </div>
+            </div>
+
+            <!-- The Very Best Dental Service -->
+            <div class="bg-[#f8fcfd] py-12 md:py-20 px-4 sm:px-6 lg:px-8">
+                <div class="max-w-7xl mx-auto">
+                    <div class="mb-6 md:mb-8 flex flex-col items-center text-center">
+                        <h2 class="text-3xl md:text-4xl font-extrabold text-[#13284c] tracking-tight">The very best dental service</h2>
+                        <div class="w-16 h-1.5 bg-[#00b4d8] mt-3 rounded-full mx-auto"></div>
+                    </div>
+                    <p class="text-center text-gray-600 mb-10 md:mb-12 text-sm md:text-base">Dedicated to excellence. Dedicated to your smile.</p>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+                        <!-- Service List Cards -->
+                        <div class="bg-white p-6 md:p-8 rounded-[2rem] md:rounded-[2.5rem] shadow-md hover:shadow-xl transition-shadow text-center border border-gray-50 flex flex-col items-center">
+                            <div class="w-14 h-14 md:w-16 md:h-16 bg-[#e6f7fa] text-[#00b4d8] rounded-full flex items-center justify-center mb-4 md:mb-6">
+                                <i data-lucide="activity" class="w-7 h-7 md:w-8 md:h-8"></i>
+                            </div>
+                            <h3 class="text-lg md:text-xl font-bold text-[#13284c] mb-3 md:mb-4">Periodontal Treatment</h3>
+                            <p class="text-gray-500 text-xs md:text-sm leading-relaxed">This focuses exclusively in the prevention, diagnosis and treatment of inflammatory diseases of the tissues and structures surrounding the teeth.</p>
+                        </div>
+                        <div class="bg-white p-6 md:p-8 rounded-[2rem] md:rounded-[2.5rem] shadow-md hover:shadow-xl transition-shadow text-center border border-gray-50 flex flex-col items-center">
+                            <div class="w-14 h-14 md:w-16 md:h-16 bg-[#e6f7fa] text-[#00b4d8] rounded-full flex items-center justify-center mb-4 md:mb-6">
+                                <i data-lucide="smile" class="w-7 h-7 md:w-8 md:h-8"></i>
+                            </div>
+                            <h3 class="text-lg md:text-xl font-bold text-[#13284c] mb-3 md:mb-4">Orthodontic Treatment</h3>
+                            <p class="text-gray-500 text-xs md:text-sm leading-relaxed">Orthodontics is a specialised domain of dentistry involved in the correction of teeth misalignment, protrusion and crowded teeth.</p>
+                        </div>
+                        <div class="bg-white p-6 md:p-8 rounded-[2rem] md:rounded-[2.5rem] shadow-md hover:shadow-xl transition-shadow text-center border border-gray-50 flex flex-col items-center">
+                            <div class="w-14 h-14 md:w-16 md:h-16 bg-[#e6f7fa] text-[#00b4d8] rounded-full flex items-center justify-center mb-4 md:mb-6">
+                                <i data-lucide="shield-check" class="w-7 h-7 md:w-8 md:h-8"></i>
+                            </div>
+                            <h3 class="text-lg md:text-xl font-bold text-[#13284c] mb-3 md:mb-4">Paediatric Dentistry</h3>
+                            <p class="text-gray-500 text-xs md:text-sm leading-relaxed">Dental Signature team expend more time, and extra effort, in ensuring that our little patients are comfortable and happy during their visit.</p>
+                        </div>
+                        <div class="bg-white p-6 md:p-8 rounded-[2rem] md:rounded-[2.5rem] shadow-md hover:shadow-xl transition-shadow text-center border border-gray-50 flex flex-col items-center">
+                            <div class="w-14 h-14 md:w-16 md:h-16 bg-[#e6f7fa] text-[#00b4d8] rounded-full flex items-center justify-center mb-4 md:mb-6">
+                                <i data-lucide="sparkles" class="w-7 h-7 md:w-8 md:h-8"></i>
+                            </div>
+                            <h3 class="text-lg md:text-xl font-bold text-[#13284c] mb-3 md:mb-4">Dental Cleaning</h3>
+                            <p class="text-gray-500 text-xs md:text-sm leading-relaxed">The Dental Signature team ensure we deliver a thorough dental cleaning job in order to improve the oral hygiene of our esteemed patients.</p>
+                        </div>
+                        <div class="bg-white p-6 md:p-8 rounded-[2rem] md:rounded-[2.5rem] shadow-md hover:shadow-xl transition-shadow text-center border border-gray-50 flex flex-col items-center">
+                            <div class="w-14 h-14 md:w-16 md:h-16 bg-[#e6f7fa] text-[#00b4d8] rounded-full flex items-center justify-center mb-4 md:mb-6">
+                                <i data-lucide="stethoscope" class="w-7 h-7 md:w-8 md:h-8"></i>
+                            </div>
+                            <h3 class="text-lg md:text-xl font-bold text-[#13284c] mb-3 md:mb-4">Extraction Procedure</h3>
+                            <p class="text-gray-500 text-xs md:text-sm leading-relaxed">Tooth extractions are sometimes carried out to reduce crowding and to eliminate badly damaged teeth or fractured teeth.</p>
+                        </div>
+                        <div class="bg-white p-6 md:p-8 rounded-[2rem] md:rounded-[2.5rem] shadow-md hover:shadow-xl transition-shadow text-center border border-gray-50 flex flex-col items-center">
+                            <div class="w-14 h-14 md:w-16 md:h-16 bg-[#e6f7fa] text-[#00b4d8] rounded-full flex items-center justify-center mb-4 md:mb-6">
+                                <i data-lucide="briefcase-medical" class="w-7 h-7 md:w-8 md:h-8"></i>
+                            </div>
+                            <h3 class="text-lg md:text-xl font-bold text-[#13284c] mb-3 md:mb-4">Dental Filling</h3>
+                            <p class="text-gray-500 text-xs md:text-sm leading-relaxed">This involves the stuffing of the hard surfaces of the teeth that are lost through decay caused by bacteria, broken, worn-out or chipped portions.</p>
+                        </div>
+                        
+                        <!-- Missing Service Card -->
+                        <div class="bg-white p-6 md:p-8 rounded-[2rem] md:rounded-[2.5rem] shadow-md border-2 border-dashed border-[#00b4d8] flex flex-col justify-center items-center text-center">
+                            <i data-lucide="search" class="text-[#00b4d8] w-10 h-10 md:w-12 md:h-12 mb-3 md:mb-4"></i>
+                            <h3 class="text-base md:text-lg font-bold text-[#13284c] mb-2">Searching for a service not listed on here?</h3>
+                            <p class="text-gray-500 text-xs md:text-sm mb-4 md:mb-6">Let's discuss about it. We'd be sure to reply ASAP</p>
+                            <div class="flex flex-col sm:flex-row gap-4 items-center w-full justify-center">
+                                <button onclick="navigate('contact')" class="px-5 py-2 rounded-lg font-semibold transition-all duration-300 shadow-md hover:shadow-lg bg-[#00b4d8] text-white hover:bg-[#0096b8] w-full sm:w-auto text-xs md:text-sm">Send a message</button>
+                                <div class="text-xs text-center sm:text-left">
+                                    <span class="text-gray-500 block">or call us at:</span>
+                                    <strong class="text-[#13284c]">+233 554 563 563</strong>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bottom CTA -->
+            <div class="py-12 md:py-16 text-center flex flex-col items-center justify-center px-4">
+                <h2 class="text-2xl md:text-3xl font-bold text-[#13284c] mb-6 md:mb-8">A perfect smile guaranteed.</h2>
+                <button onclick="navigate('contact')" class="px-6 py-3 w-full sm:w-auto rounded-lg font-semibold transition-all duration-300 shadow-md hover:shadow-lg bg-[#00b4d8] text-white hover:bg-[#0096b8]">Book appointment</button>
+            </div>
+        </div>
+
+        <!-- ================= GALLERY PAGE ================= -->
+        <div id="page-gallery" class="page-view animate-fadeIn">
+            <!-- Hero Section -->
+            <div class="relative h-[30vh] sm:h-[40vh] md:h-[60vh] flex items-center justify-center pt-16">
+                <div class="absolute inset-0 bg-[#00b4d8]/20 z-10 backdrop-blur-sm"></div>
+                <img src="https://images.unsplash.com/photo-1598256989800-efa4fd51071d?auto=format&fit=crop&w=1920&q=80" alt="Gallery Hero" class="absolute inset-0 w-full h-full object-cover">
+                <div class="relative z-20 text-center text-white px-4 mt-8 md:mt-0">
+                    <h1 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold mb-3 md:mb-4 drop-shadow-md">Our Gallery</h1>
+                    <p class="text-base sm:text-lg md:text-xl lg:text-2xl max-w-2xl mx-auto drop-shadow-sm">Making the dream smile of our customers a reality!</p>
+                </div>
+            </div>
+            
+            <div class="relative w-full h-12 md:h-24 overflow-hidden -mt-12 md:-mt-24 z-10 pointer-events-none">
+                <svg viewBox="0 0 1440 120" class="absolute bottom-0 w-full h-full" preserveAspectRatio="none">
+                    <path fill="#ffffff" d="M0,64L80,69.3C160,75,320,85,480,80C640,75,800,53,960,48C1120,43,1280,53,1360,58.7L1440,64L1440,120L1360,120C1280,120,1120,120,960,120C800,120,640,120,480,120C320,120,160,120,80,120L0,120Z"></path>
+                </svg>
+            </div>
+
+            <!-- Our Team In Action -->
+            <div class="py-12 md:py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+                <div class="mb-6 md:mb-8 flex flex-col items-center text-center">
+                    <h2 class="text-3xl md:text-4xl font-extrabold text-[#13284c] tracking-tight">Our team in action</h2>
+                    <div class="w-16 h-1.5 bg-[#00b4d8] mt-3 rounded-full mx-auto"></div>
+                </div>
+                
+                <div class="mt-10 md:mt-16 grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16 items-center">
+                    <div>
+                        <img src="https://images.unsplash.com/photo-1606811841689-23dfddce3e95?auto=format&fit=crop&w=800&q=80" alt="Team Action 1" class="rounded-[2rem] md:rounded-[3rem] shadow-xl w-full object-cover h-56 sm:h-64 md:h-auto">
+                    </div>
+                    <div class="text-center md:text-left">
+                        <p class="text-gray-600 text-sm md:text-lg leading-relaxed mb-6 md:mb-8">
+                            We are committed to delivering optimal dental care services to our patients in order to significantly improve their dental health.
+                        </p>
+                        <img src="https://images.unsplash.com/photo-1598256989800-efa4fd51071d?auto=format&fit=crop&w=800&q=80" alt="Team Action 2" class="rounded-[2rem] md:rounded-[3rem] shadow-xl w-full md:w-3/4 mx-auto md:ml-auto object-cover h-56 sm:h-64 md:h-auto">
+                    </div>
+                </div>
+
+                <div class="mt-10 md:mt-16 grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16 items-center">
+                    <div class="order-2 md:order-1 text-center md:text-left">
+                        <p class="text-gray-600 text-sm md:text-lg leading-relaxed mb-6 md:mb-8">
+                            We are committed to delivering optimal dental care services to our patients in order to significantly improve their dental health.
+                        </p>
+                        <img src="https://images.unsplash.com/photo-1629909613654-28e377c37b09?auto=format&fit=crop&w=800&q=80" alt="Team Action 4" class="rounded-[2rem] md:rounded-[3rem] shadow-xl w-full md:w-3/4 mx-auto md:mr-auto object-cover h-56 sm:h-64 md:h-auto">
+                    </div>
+                    <div class="order-1 md:order-2">
+                        <img src="https://images.unsplash.com/photo-1609840114035-3c981b782dfe?auto=format&fit=crop&w=800&q=80" alt="Team Action 3" class="rounded-[2rem] md:rounded-[3rem] shadow-xl w-full object-cover h-56 sm:h-64 md:h-auto">
+                    </div>
+                </div>
+            </div>
+
+            <!-- More Pictures -->
+            <div class="bg-[#f8fcfd] py-12 md:py-20 px-4 sm:px-6 lg:px-8">
+                <div class="max-w-7xl mx-auto">
+                    <div class="mb-6 md:mb-8 flex flex-col items-center text-center">
+                        <h2 class="text-3xl md:text-4xl font-extrabold text-[#13284c] tracking-tight">More Pictures</h2>
+                        <div class="w-16 h-1.5 bg-[#00b4d8] mt-3 rounded-full mx-auto"></div>
+                    </div>
+                    <p class="text-center text-gray-600 mb-10 md:mb-12 text-sm md:text-base">Because why not ...</p>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                        <img src="https://images.unsplash.com/photo-1606811841689-23dfddce3e95?auto=format&fit=crop&w=400&h=400&q=80" alt="Gallery" class="rounded-2xl shadow-md w-full h-56 sm:h-64 object-cover hover:opacity-90 transition-opacity cursor-pointer">
+                        <img src="https://images.unsplash.com/photo-1598256989800-efa4fd51071d?auto=format&fit=crop&w=400&h=400&q=80" alt="Gallery" class="rounded-2xl shadow-md w-full h-56 sm:h-64 object-cover hover:opacity-90 transition-opacity cursor-pointer">
+                        <img src="https://images.unsplash.com/photo-1629909613654-28e377c37b09?auto=format&fit=crop&w=400&h=400&q=80" alt="Gallery" class="rounded-2xl shadow-md w-full h-56 sm:h-64 object-cover hover:opacity-90 transition-opacity cursor-pointer">
+                        <img src="https://images.unsplash.com/photo-1609840114035-3c981b782dfe?auto=format&fit=crop&w=400&h=400&q=80" alt="Gallery" class="rounded-2xl shadow-md w-full h-56 sm:h-64 object-cover hover:opacity-90 transition-opacity cursor-pointer">
+                        <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&h=400&q=80" alt="Gallery" class="rounded-2xl shadow-md w-full h-56 sm:h-64 object-cover hover:opacity-90 transition-opacity cursor-pointer">
+                        <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=400&h=400&q=80" alt="Gallery" class="rounded-2xl shadow-md w-full h-56 sm:h-64 object-cover hover:opacity-90 transition-opacity cursor-pointer">
+                        <img src="https://images.unsplash.com/photo-1531123897727-8f129e1bf08c?auto=format&fit=crop&w=400&h=400&q=80" alt="Gallery" class="rounded-2xl shadow-md w-full h-56 sm:h-64 object-cover hover:opacity-90 transition-opacity cursor-pointer">
+                        <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=400&h=400&q=80" alt="Gallery" class="rounded-2xl shadow-md w-full h-56 sm:h-64 object-cover hover:opacity-90 transition-opacity cursor-pointer">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ================= CONTACT PAGE ================= -->
+        <div id="page-contact" class="page-view animate-fadeIn">
+            <!-- Hero Section -->
+            <div class="relative h-[30vh] sm:h-[40vh] md:h-[50vh] flex items-center justify-center pt-16">
+                <div class="absolute inset-0 bg-black/50 z-10"></div>
+                <img src="https://images.unsplash.com/photo-1609840114035-3c981b782dfe?auto=format&fit=crop&w=1920&q=80" alt="Contact Hero" class="absolute inset-0 w-full h-full object-cover">
+                <div class="relative z-20 text-center text-white px-4 mt-8 md:mt-0">
+                    <h1 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold mb-3 md:mb-4 drop-shadow-md">Book an appointment</h1>
+                    <p class="text-base sm:text-lg md:text-xl lg:text-2xl max-w-2xl mx-auto drop-shadow-sm">Your smile is your best accessory, <br class="hidden md:block"/> let's help you get yours back</p>
+                </div>
+            </div>
+            
+            <div class="relative w-full h-12 md:h-24 overflow-hidden -mt-12 md:-mt-24 z-10 pointer-events-none">
+                <svg viewBox="0 0 1440 120" class="absolute bottom-0 w-full h-full" preserveAspectRatio="none">
+                    <path fill="#ffffff" d="M0,64L80,69.3C160,75,320,85,480,80C640,75,800,53,960,48C1120,43,1280,53,1360,58.7L1440,64L1440,120L1360,120C1280,120,1120,120,960,120C800,120,640,120,480,120C320,120,160,120,80,120L0,120Z"></path>
+                </svg>
+            </div>
+
+            <div class="text-center py-10 md:py-12 px-4">
+                <div class="mb-6 md:mb-8 flex flex-col items-center text-center">
+                    <h2 class="text-2xl sm:text-3xl md:text-4xl font-extrabold text-[#13284c] tracking-tight">We are only a message away</h2>
+                    <div class="w-16 h-1.5 bg-[#00b4d8] mt-3 rounded-full mx-auto"></div>
+                </div>
+                <p class="text-gray-600 text-sm md:text-lg max-w-2xl mx-auto">
+                    We'd love to work with you. Contact us and let us discuss ways in which we can be of service
+                </p>
+            </div>
+
+            <!-- Form Section -->
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-0 shadow-2xl rounded-[2rem] md:rounded-[3rem] overflow-hidden bg-white">
+                    <div class="hidden lg:block">
+                        <img src="https://images.unsplash.com/photo-1629909613654-28e377c37b09?auto=format&fit=crop&w=800&h=1000&q=80" alt="Clinic Office" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-6 sm:p-10 md:p-12 lg:p-16 bg-white">
+                        <div class="mb-6 md:mb-8">
+                            <h2 class="text-2xl sm:text-3xl md:text-4xl font-extrabold text-[#13284c] tracking-tight">Send us a note</h2>
+                            <div class="w-16 h-1.5 bg-[#00b4d8] mt-3 rounded-full"></div>
+                        </div>
+                        <form class="space-y-6 md:space-y-8 mt-8" onsubmit="event.preventDefault(); alert('Message sent successfully!'); this.reset();">
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
+                                <div class="relative pt-4">
+                                    <input type="text" id="fname" required class="w-full border-b-2 border-[#e0e0e0] focus:border-[#00b4d8] outline-none py-2 bg-transparent transition-colors peer" placeholder=" ">
+                                    <label for="fname" class="absolute left-0 top-6 text-gray-500 cursor-text transition-all text-sm peer-focus:text-xs peer-focus:top-0 peer-focus:text-[#00b4d8] peer-valid:text-xs peer-valid:top-0 peer-valid:text-[#00b4d8]">First Name *</label>
+                                </div>
+                                <div class="relative pt-4">
+                                    <input type="text" id="lname" required class="w-full border-b-2 border-[#e0e0e0] focus:border-[#00b4d8] outline-none py-2 bg-transparent transition-colors peer" placeholder=" ">
+                                    <label for="lname" class="absolute left-0 top-6 text-gray-500 cursor-text transition-all text-sm peer-focus:text-xs peer-focus:top-0 peer-focus:text-[#00b4d8] peer-valid:text-xs peer-valid:top-0 peer-valid:text-[#00b4d8]">Last Name *</label>
+                                </div>
+                            </div>
+                            
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
+                                <div class="relative pt-4">
+                                    <input type="email" id="email" required class="w-full border-b-2 border-[#e0e0e0] focus:border-[#00b4d8] outline-none py-2 bg-transparent transition-colors peer" placeholder=" ">
+                                    <label for="email" class="absolute left-0 top-6 text-gray-500 cursor-text transition-all text-sm peer-focus:text-xs peer-focus:top-0 peer-focus:text-[#00b4d8] peer-valid:text-xs peer-valid:top-0 peer-valid:text-[#00b4d8]">Email *</label>
+                                </div>
+                                <div class="relative pt-4">
+                                    <input type="tel" id="phone" required class="w-full border-b-2 border-[#e0e0e0] focus:border-[#00b4d8] outline-none py-2 bg-transparent transition-colors peer" placeholder=" ">
+                                    <label for="phone" class="absolute left-0 top-6 text-gray-500 cursor-text transition-all text-sm peer-focus:text-xs peer-focus:top-0 peer-focus:text-[#00b4d8] peer-valid:text-xs peer-valid:top-0 peer-valid:text-[#00b4d8]">Phone *</label>
+                                </div>
+                            </div>
+
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
+                                <div class="relative flex items-center border-b-2 border-[#e0e0e0] focus-within:border-[#00b4d8] transition-colors">
+                                    <input type="date" id="date" required class="w-full outline-none py-2 bg-transparent text-gray-700 text-sm md:text-base">
+                                </div>
+                                <div class="relative flex items-center border-b-2 border-[#e0e0e0] focus-within:border-[#00b4d8] transition-colors">
+                                    <input type="time" id="time" required class="w-full outline-none py-2 bg-transparent text-gray-700 text-sm md:text-base">
+                                </div>
+                            </div>
+
+                            <div class="relative mt-6 md:mt-8 pt-4">
+                                <input type="text" id="help" required class="w-full border-b-2 border-[#e0e0e0] focus:border-[#00b4d8] outline-none py-2 bg-transparent transition-colors peer" placeholder=" ">
+                                <label for="help" class="absolute left-0 top-6 text-gray-500 cursor-text transition-all text-sm peer-focus:text-xs peer-focus:top-0 peer-focus:text-[#00b4d8] peer-valid:text-xs peer-valid:top-0 peer-valid:text-[#00b4d8]">How can we help? *</label>
+                            </div>
+
+                            <div class="relative mt-6 md:mt-8 border-b-2 border-[#e0e0e0] focus-within:border-[#00b4d8] transition-colors pb-2">
+                                <select required class="w-full outline-none bg-transparent text-gray-500 appearance-none cursor-pointer text-sm md:text-base">
+                                    <option value="" disabled selected hidden>Select a location</option>
+                                    <option value="east-legon">East Legon, Accra</option>
+                                    <option value="haatso">Haatso, Accra</option>
+                                </select>
+                                <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-500">
+                                    <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
+                                </div>
+                            </div>
+
+                            <button type="submit" class="px-6 py-3 w-full sm:w-40 rounded-lg font-semibold transition-all duration-300 shadow-md hover:shadow-lg bg-[#00b4d8] text-white hover:bg-[#0096b8] mt-6 md:mt-8">Submit</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Contact Details -->
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-20">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 md:gap-16 items-center">
+                    <div class="order-2 lg:order-1">
+                        <div class="mb-6 md:mb-8 flex flex-col md:block items-center text-center md:text-left">
+                            <h2 class="text-3xl md:text-4xl font-extrabold text-[#13284c] tracking-tight">Contact Us</h2>
+                            <div class="w-16 h-1.5 bg-[#00b4d8] mt-3 rounded-full"></div>
+                        </div>
+                        <div class="space-y-6 md:space-y-8 mt-8 md:mt-10">
+                            <div class="flex items-start gap-4">
+                                <div class="w-10 h-10 md:w-12 md:h-12 bg-[#13284c] rounded-full flex items-center justify-center text-white flex-shrink-0">
+                                    <i data-lucide="mail" class="w-4 h-4 md:w-5 md:h-5"></i>
+                                </div>
+                                <div class="pt-2 md:pt-3 font-medium text-gray-700 text-sm md:text-base">info@dentalsignaturegh.com</div>
+                            </div>
+                            <div class="flex items-start gap-4">
+                                <div class="w-10 h-10 md:w-12 md:h-12 bg-[#13284c] rounded-full flex items-center justify-center text-white flex-shrink-0">
+                                    <i data-lucide="phone" class="w-4 h-4 md:w-5 md:h-5"></i>
+                                </div>
+                                <div class="pt-2 md:pt-3 font-medium text-gray-700 text-sm md:text-base">0554 563 563 | 030 252 7827</div>
+                            </div>
+                            <div class="flex items-start gap-4">
+                                <div class="w-10 h-10 md:w-12 md:h-12 bg-[#13284c] rounded-full flex items-center justify-center text-white flex-shrink-0">
+                                    <i data-lucide="map-pin" class="w-4 h-4 md:w-5 md:h-5"></i>
+                                </div>
+                                <div class="pt-1 font-medium text-gray-700 leading-relaxed max-w-sm text-sm md:text-base">
+                                    46, Lagos Avenue, Opposite Radford University East Legon Accra, Ghana.
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="flex justify-center lg:justify-start gap-4 mt-8 md:mt-10">
+                            <a href="#" class="w-10 h-10 rounded-full bg-[#13284c] text-white flex items-center justify-center hover:bg-[#00b4d8] transition-colors"><i data-lucide="facebook" class="w-5 h-5"></i></a>
+                            <a href="#" class="w-10 h-10 rounded-full bg-[#13284c] text-white flex items-center justify-center hover:bg-[#00b4d8] transition-colors"><i data-lucide="twitter" class="w-5 h-5"></i></a>
+                            <a href="#" class="w-10 h-10 rounded-full bg-[#13284c] text-white flex items-center justify-center hover:bg-[#00b4d8] transition-colors"><i data-lucide="instagram" class="w-5 h-5"></i></a>
+                            <a href="#" class="w-10 h-10 rounded-full bg-[#13284c] text-white flex items-center justify-center hover:bg-[#00b4d8] transition-colors"><i data-lucide="linkedin" class="w-5 h-5"></i></a>
+                        </div>
+                    </div>
+                    <div class="order-1 lg:order-2 rounded-[2rem] md:rounded-[3rem] overflow-hidden shadow-xl h-56 sm:h-64 md:h-[400px]">
+                        <img src="https://images.unsplash.com/photo-1512428559087-560fa5ceab42?auto=format&fit=crop&w=800&q=80" alt="Contact Us" class="w-full h-full object-cover">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Map -->
+            <div class="w-full h-56 sm:h-64 md:h-[400px] relative">
+                <iframe 
+                    src="https://maps.google.com/maps?q=Dental%20Signature%20Lagos%20Avenue%20East%20Legon%20Accra&t=&z=15&ie=UTF8&iwloc=&output=embed" 
+                    width="100%" 
+                    height="100%" 
+                    style="border:0;" 
+                    allowfullscreen="" 
+                    loading="lazy" 
+                    referrerpolicy="no-referrer-when-downgrade"
+                    class="absolute inset-0">
+                </iframe>
+            </div>
+
+            <div class="py-12 md:py-16 text-center px-4">
+                <h2 class="text-2xl md:text-3xl font-bold text-[#13284c] mb-6 md:mb-8">We guarantee to make you smile with confidence</h2>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-[#13284c] text-white pt-12 md:pt-16 pb-8 border-t-[6px] md:border-t-[8px] border-[#00b4d8]">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 md:gap-12 mb-10 md:mb-12">
+                <!-- Footer Logo & Bio -->
+                <div class="text-center sm:text-left">
+                    <div class="flex items-center justify-center sm:justify-start gap-2 mb-4 md:mb-6 cursor-pointer" onclick="navigate('home')">
+                        <div class="text-white">
+                            <svg width="32" height="32" class="md:w-10 md:h-10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M12 4.5c-3-2-6-1.5-8 1.5s0 8 3 10c2.5 1.5 5 1.5 5 1.5s2.5 0 5-1.5c3-2 3-7 3-10s-5-3.5-8-1.5z"></path>
+                                <path d="M12 17.5v-8"></path>
+                                <path d="M8 9.5v8"></path>
+                                <path d="M16 9.5v8"></path>
+                            </svg>
+                        </div>
+                        <div>
+                            <h1 class="text-lg md:text-xl font-black text-white leading-none tracking-tight">Dental</h1>
+                            <h1 class="text-lg md:text-xl font-light text-white leading-none tracking-tight">Signature</h1>
+                        </div>
+                    </div>
+                    <p class="text-gray-400 text-xs md:text-sm leading-relaxed md:pr-4">
+                        Dental Signature is a friendly, professional and affordable private dental practice offering an extensive range of dental services.
+                    </p>
+                </div>
+
+                <!-- Links -->
+                <div class="text-center sm:text-left">
+                    <h3 class="text-base md:text-lg font-bold mb-4 md:mb-6">Links</h3>
+                    <ul class="space-y-2 md:space-y-3 text-xs md:text-sm text-gray-400">
+                        <li><button onclick="navigate('home')" class="hover:text-white transition-colors">Home</button></li>
+                        <li><button onclick="navigate('about')" class="hover:text-white transition-colors">About Us</button></li>
+                        <li><button onclick="navigate('services')" class="hover:text-white transition-colors">Services</button></li>
+                        <li><button onclick="navigate('gallery')" class="hover:text-white transition-colors">Gallery</button></li>
+                        <li><button onclick="navigate('contact')" class="hover:text-white transition-colors">Let's Talk</button></li>
+                    </ul>
+                </div>
+
+                <!-- Services -->
+                <div class="text-center sm:text-left">
+                    <h3 class="text-base md:text-lg font-bold mb-4 md:mb-6">Services</h3>
+                    <ul class="space-y-2 md:space-y-3 text-xs md:text-sm text-gray-400">
+                        <li><button onclick="navigate('services')" class="hover:text-white transition-colors">Dental Check-Up</button></li>
+                        <li><button onclick="navigate('services')" class="hover:text-white transition-colors">Scale & Polish</button></li>
+                        <li><button onclick="navigate('services')" class="hover:text-white transition-colors">Teeth Whitening</button></li>
+                        <li><button onclick="navigate('services')" class="hover:text-white transition-colors">Cavity Filling</button></li>
+                        <li><button onclick="navigate('services')" class="hover:text-white transition-colors">Endodontics</button></li>
+                    </ul>
+                </div>
+
+                <!-- Contact -->
+                <div class="text-center sm:text-left">
+                    <h3 class="text-base md:text-lg font-bold mb-4 md:mb-6">Contact</h3>
+                    <ul class="space-y-3 md:space-y-4 text-xs md:text-sm text-gray-400">
+                        <li class="flex items-start justify-center sm:justify-start gap-3">
+                            <i data-lucide="phone" class="flex-shrink-0 mt-0.5 text-[#00b4d8] w-4 h-4"></i>
+                            <span>Phone: 024 8632 660 | 055 453 2013</span>
+                        </li>
+                        <li class="flex items-start justify-center sm:justify-start gap-3">
+                            <i data-lucide="mail" class="flex-shrink-0 mt-0.5 text-[#00b4d8] w-4 h-4"></i>
+                            <span>Email: info@dentalsignaturegh.com</span>
+                        </li>
+                        <li class="flex items-start justify-center sm:justify-start gap-3">
+                            <i data-lucide="map-pin" class="flex-shrink-0 mt-0.5 text-[#00b4d8] w-4 h-4"></i>
+                            <span class="leading-relaxed">East Legon: 46, Lagos Avenue, Opposite Radford University, East Legon Accra.<br/><br/>Haatso: Haatso Boyle Rd, Opp. DVLA</span>
+                        </li>
+                    </ul>
+   
+                </div>
+            </div>
+
+            <div class="border-t border-white/10 pt-6 md:pt-8 flex flex-col md:flex-row justify-between items-center text-[10px] md:text-xs text-gray-500 gap-4 md:gap-0">
+                <p>&copy; Dental Signature | All rights reserved 2026</p>
+                <!-- Floating WhatsApp Chat Button -->
+                <div class="fixed bottom-4 right-4 md:bottom-6 md:right-6 z-50">
+                    <a href="https://wa.me/233554563563" target="_blank" class="bg-[#25D366] text-white px-4 py-3 md:px-5 md:py-3.5 rounded-full shadow-[0_8px_30px_rgb(0,0,0,0.2)] flex items-center gap-2 md:gap-3 hover:bg-[#1ebd5a] hover:-translate-y-1 transition-all duration-300 group cursor-pointer animate-bounce">
+                        
+                        <span class="font-bold tracking-wide text-sm md:text-base hidden sm:inline-block">WhatsApp Us</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Logic Script -->
+    <script>
+        // Initialize Lucide Icons
+        lucide.createIcons();
+
+        // Router & Navigation Logic
+        function navigate(pageId) {
+            // Hide all pages
+            document.querySelectorAll('.page-view').forEach(function(page) {
+                page.classList.remove('active');
+            });
+            
+            // Show targeted page
+            document.getElementById('page-' + pageId).classList.add('active');
+            
+            // Scroll to top
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            
+            // Update Navigation active states
+            document.querySelectorAll('.nav-btn').forEach(function(btn) {
+                if(btn.getAttribute('data-target') === pageId) {
+                    btn.classList.add('text-[#00b4d8]');
+                    btn.classList.remove('text-[#13284c]');
+                } else if(btn.getAttribute('data-target')) {
+                    btn.classList.remove('text-[#00b4d8]');
+                    btn.classList.add('text-[#13284c]');
+                }
+            });
+
+            // Close mobile menu if open
+            const mobileMenu = document.getElementById('mobile-menu');
+            const menuIcon = document.getElementById('menu-icon');
+            const closeIcon = document.getElementById('close-icon');
+            if(!mobileMenu.classList.contains('hidden')) {
+                mobileMenu.classList.add('hidden');
+                if(menuIcon) menuIcon.classList.remove('hidden');
+                if(closeIcon) closeIcon.classList.add('hidden');
+            }
+        }
+
+        // Mobile Menu Toggle Logic
+        document.getElementById('mobile-menu-btn').addEventListener('click', function() {
+            const mobileMenu = document.getElementById('mobile-menu');
+            const menuIcon = document.getElementById('menu-icon');
+            const closeIcon = document.getElementById('close-icon');
+
+            mobileMenu.classList.toggle('hidden');
+            if(menuIcon) menuIcon.classList.toggle('hidden');
+            if(closeIcon) closeIcon.classList.toggle('hidden');
+        });
+    </script>
+</body>
+</html>
